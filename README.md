@@ -1,16 +1,49 @@
-# Scaffold
+# Traffic Routing
 
-Use this template to bootstrap a new repository with ready to use automation for deploying Azure services.
+Discover the implementation of Deployment Stamp patterns in Microsoft Azure with Bicep through this repository, showcasing best practices for ensuring the resilience and high availability of applications.
 
-The workflow is comprised of three stages - build, test and deploy. These stages can be customized as needed for different deployment scenarios.
+Leveraging essential Azure resources like Front Door, Application Gateway for Containers, Kubernetes Service, and Availability Zones, this example illustrates the establishment of a robust architecture. Notably, it highlights the seamless traffic distribution capabilities across global clusters enabled by the integration of Front Door, Application Gateway for Containers, and Kubernetes. Explore a highly available and scalable infrastructure designed for efficient traffic routing and optimal performance. 🌐🚀
 
-Within the `src/` directory, there are the following artifacts:
+![Architecture](./eng/images/architecture.png)
 
-- `main.bicep` This Bicep file that will load defaults, user-defined settings and resource modules
-- `main.bicepparam` This Bicep parameter file handles environment specific settings
-- `bicepconfig.json` This JSON file will customize the Bicep development experience
-- `defaults.json` This JSON file provides Bicep with a set of re-usable common values
-- `modules/` This contains resource groups and resource modules to quickly get started
+---
+
+## Repository Structure
+
+Within the `src/` directory, you'll find the following artifacts:
+
+- `main.bicep`: This Bicep file loads defaults, user-defined settings, and resource modules.
+- `main.bicepparam`: Bicep parameter file handling environment-specific settings.
+- `bicepconfig.json`: JSON file customizing the Bicep development experience.
+- `defaults.json`: JSON file providing Bicep with a set of reusable common values.
+- `modules/`: Contains resource groups and resource modules to quickly get started.
+
+The global files handle the deployment of Azure Front Door and configure traffic routing policies.
+
+- `modules/global.scope.bicep`: Handles the global deployment at the subscription scope, such as Resource Group creation and Role Assignments.
+- `modules/global.resources.bicep`: Handles the creation of Azure Resources, such as Front Door.
+
+The region files deploy Application Gateways for Containers as a regional service, distributing traffic across stamps.
+
+- `modules/region.scope.bicep`: Handles the global deployment at the subscription scope, such as Resource Group creation and Role Assignments.
+- `modules/region.resources.bicep`: Handles the creation of Azure Resources, such as Application Gateway for Containers.
+
+The stamp files deploy Kubernetes clusters along with Virtual Networks and Managed Identity. Stamps are isolated compute units without east-west connectivity options.
+
+- `modules/stamp.scope.bicep`: Handles the global deployment at the Resource Group scope.
+- `modules/stamp.resources.bicep`: Handles the creation of Azure Resources, such as Kubernetes.
+
+The application files configure the Kubernetes control plane, deploying the controller for Application Gateway for Containers, along with a sample application on the cluster.
+
+- `modules/cluster.application.bicep`: Handles the creation of an example Kubernetes application deployment.
+- `modules/cluster.controller.bicep`: Handles the creation of the Application Gateway for Containers on Kubernetes controller.
+- `modules/cluster.gateway.bicep`: Handles the creation of the Gateway API resources for Application Gateway for Containers.
+
+Within the `eng/` directory, find the following artifacts:
+
+- `images/`: Contains images for the README.md file.
+- `scripts/`: Contains deployment stack creation and deletion scripts.
+
 
 ---
 
@@ -18,51 +51,13 @@ Within the `src/` directory, there are the following artifacts:
 
 ### Deployment
 
-#### Local Commands
+```bash
+./eng/scripts/create.sh
+```
 
 ```bash
-az deployment sub create \
-  --name '' \
-  --location '' \
-  --template-file './src/main.bicep' \
-  --parameters './src/main.bicepparam'
+./eng/scripts/delete.sh
 ```
-
-```powershell
-New-AzSubscriptionDeployment `
-  -Name "" `
-  -Location "" `
-  -TemplateFile "./src/main.bicep" `
-  -TemplateParameterFile "./src/main.bicepparam"
-```
-
-#### GitHub Actions
-
-Azure Active Directory - Application
-
-- Navigate to the 'App Registration' blade wihin the Azure portal
-- Select 'New registration' and provide a Name for the application
-- Select the newly created application and select 'Certificates & secrets'
-- Select 'Federated Credentials' and 'Add credential'
-- Provide the 'Organization (username)' and Repository for the credential
-- Select 'Entity type' - Branch and provide 'main'
-- Repeat process for 'Entity type' - Pull Request
-
-Azure Resource Manager - Role Assignment
-
-- Navigate to the Subscription in the Azure portal
-- Select 'Access control (IAM)' and 'Add' - 'Add role assignment'
-- Select Role - Contributor and select 'Members'
-- Provide the 'Name' of the application from the previous steps
-
-GitHub Actions - Secrets
-
-- Navigate to 'Settings' on the repository
-- Select 'Secrets' and 'Actions' link
-- Select 'New repository secret' and create secrets for the following:
-  - AZURE_TENANT_ID
-  - AZURE_SUBSCRIPTION_ID
-  - AZURE_CLIENT_ID
 
 ---
 
