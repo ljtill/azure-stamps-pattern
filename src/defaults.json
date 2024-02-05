@@ -1,1 +1,8 @@
-{}
+{
+    "locations": {
+        "australiaeast": "aeu",
+        "eastus": "eus",
+        "northeurope": "neu",
+        "uksouth": "uks"
+    }
+}
