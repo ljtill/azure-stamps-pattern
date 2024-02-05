@@ -18,6 +18,7 @@ provider 'kubernetes@1.0.0' with {
 // ---------
 
 // Namespace
+
 resource namespace 'core/Namespace@v1' = {
   metadata: {
     name: 'test-infra'
@@ -25,6 +26,7 @@ resource namespace 'core/Namespace@v1' = {
 }
 
 // Service
+
 resource service 'core/Service@v1' = {
   metadata: {
     name: 'backend'
@@ -47,6 +49,7 @@ resource service 'core/Service@v1' = {
 }
 
 // Deployment
+
 resource deployment 'apps/Deployment@v1' = {
   metadata: {
     name: 'backend'

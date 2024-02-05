@@ -169,7 +169,11 @@ resource assignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
   }
 }
 
-// Helm Chart
+// -------
+// Modules
+// -------
+
+// Kubernetes
 // - Issue: Unable to implement 'optionalModuleNames'
 // - Exception: Expected module syntax body to contain property 'name'
 // - Patch: Added 'name' property to the module syntax body

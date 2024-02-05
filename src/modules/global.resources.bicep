@@ -25,6 +25,8 @@ resource front 'Microsoft.Cdn/profiles@2023-07-01-preview' = {
   tags: tags
 }
 
+// Origin Group
+
 resource group 'Microsoft.Cdn/profiles/originGroups@2023-07-01-preview' = {
   name: 'default'
   parent: front
@@ -53,6 +55,8 @@ resource origins 'Microsoft.Cdn/profiles/originGroups/origins@2023-07-01-preview
     weight: 1000
   }
 }]
+
+// Endpoints
 
 resource endpoint 'Microsoft.Cdn/profiles/afdEndpoints@2023-07-01-preview' = {
   name: 'default'

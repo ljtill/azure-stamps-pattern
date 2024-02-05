@@ -18,6 +18,7 @@ provider 'kubernetes@1.0.0' with {
 // ---------
 
 // Namespace
+
 // resource namespace 'core/Namespace@v1' = {
 //   metadata: {
 //     name: ''
@@ -25,6 +26,7 @@ provider 'kubernetes@1.0.0' with {
 // }
 
 // Service Account
+
 resource account 'core/ServiceAccount@v1' = {
   metadata: {
     name: 'flux-reconciler'
@@ -33,6 +35,7 @@ resource account 'core/ServiceAccount@v1' = {
 }
 
 // Role
+
 resource role 'rbac.authorization.k8s.io/Role@v1' = {
   metadata: {
     name: 'flux-reconciler'
@@ -48,6 +51,7 @@ resource role 'rbac.authorization.k8s.io/Role@v1' = {
 }
 
 // Cluster Role
+
 resource clusterRole 'rbac.authorization.k8s.io/ClusterRole@v1' = {
   metadata: {
     name: 'flux-reconciler'
@@ -62,6 +66,7 @@ resource clusterRole 'rbac.authorization.k8s.io/ClusterRole@v1' = {
 }
 
 // Role Binding
+
 resource binding 'rbac.authorization.k8s.io/RoleBinding@v1' = {
   metadata: {
     name: 'flux-reconciler'
@@ -82,6 +87,7 @@ resource binding 'rbac.authorization.k8s.io/RoleBinding@v1' = {
 }
 
 // Cluster Role Binding
+
 resource clusterBinding 'rbac.authorization.k8s.io/ClusterRoleBinding@v1' = {
   metadata: {
     name: 'flux-reconciler'
@@ -101,6 +107,7 @@ resource clusterBinding 'rbac.authorization.k8s.io/ClusterRoleBinding@v1' = {
 }
 
 // Repository
+
 #disable-next-line BCP081
 resource repository 'source.toolkit.fluxcd.io/HelmRepository@v1beta2' = {
   metadata: {
@@ -115,6 +122,7 @@ resource repository 'source.toolkit.fluxcd.io/HelmRepository@v1beta2' = {
 }
 
 // Release
+
 #disable-next-line BCP081
 resource release 'helm.toolkit.fluxcd.io/HelmRelease@v2beta1' = {
   metadata: {
