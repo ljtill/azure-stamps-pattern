@@ -44,24 +44,29 @@ Within the `eng/` directory, find the following artifacts:
 - `images/`: Contains images for the README.md file.
 - `scripts/`: Contains deployment stack creation and deletion scripts.
 
-
 ---
 
 ## Getting Started
 
-### Deployment
+Initiate authentication into the Azure CLI and then choose the preferred subscription.
+
+```bash
+az login
+az account -s '{Subscription}'
+```
+
+Execute the provided Shell Script to generate a Deployment Stack and create the Azure resources outlined in this repository.
 
 ```bash
 ./eng/scripts/create.sh
 ```
 
+Execute the given Shell Script to remove the Azure resources deployed through this repository; this will delete the Deployment Stack along with its associated resources.
+
 ```bash
 ./eng/scripts/delete.sh
 ```
 
----
+## Notice
 
-### Links
-
-- [Bicep](https://github.com/Azure/bicep)
-- [Templates](https://docs.microsoft.com/azure/templates)
+> Please note that while the Application Gateway for Containers service is in preview, there is a limitation allowing only one association per AGfC resource. This restriction currently prevents the use of more than one stamp per region. I'll update this repository once this limitation has been lifted. For additional details, please refer to [Microsoft Learn](https://learn.microsoft.com/azure/application-gateway/for-containers/application-gateway-for-containers-components). The source code for the restriction can be found [here](./src/modules/region.resources.bicep#L48).
