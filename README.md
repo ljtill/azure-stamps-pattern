@@ -1,6 +1,6 @@
 # 🌐 Traffic Routing
 
-This repository provides insights into implementing Deployment Stamp patterns in Microsoft Azure through Bicep, following best practices for ensuring application resilience and high availability.
+This repository provides insights into implementing [Deployment Stamps](https://learn.microsoft.com/azure/architecture/patterns/deployment-stamp) pattern in Microsoft Azure through Bicep, following best practices for ensuring application resilience and high availability.
 
 By leveraging Azure resources such as Front Door, Application Gateway for Containers, Kubernetes Service, and Availability Zones, the repository demonstrates the construction of a resilient architecture. It places particular emphasis on establishing a dependable infrastructure for distributing traffic across global clusters. This is achieved through the integration of both global and regional networking components. The end result is a highly available and scalable framework designed to optimize traffic routing and enhance overall performance.
 
