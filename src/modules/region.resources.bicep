@@ -14,7 +14,7 @@ targetScope = 'resourceGroup'
 // Resources
 // ---------
 
-// Role Assignment
+// Role Assignments
 
 resource assignments 'Microsoft.Authorization/roleAssignments@2022-04-01' = [for (principalId, index) in principalIds: {
   name: guid(principalId, 'ApplicationGatewayForContainersConfigurationManager', '${index}')
@@ -35,7 +35,7 @@ resource controller 'Microsoft.ServiceNetworking/trafficControllers@2023-11-01' 
   tags: tags
 }
 
-// Frontends
+// Frontend
 
 resource frontend 'Microsoft.ServiceNetworking/trafficControllers/frontends@2023-11-01' = {
   name: 'default'
@@ -45,6 +45,7 @@ resource frontend 'Microsoft.ServiceNetworking/trafficControllers/frontends@2023
 }
 
 // Associations
+// - Issue: Multiple assocations are not supported by the Microsoft.ServiceNetworking RP.
 
 resource associations 'Microsoft.ServiceNetworking/trafficControllers/associations@2023-11-01' = {
   name: '${resourceName.association}-000'
@@ -57,20 +58,6 @@ resource associations 'Microsoft.ServiceNetworking/trafficControllers/associatio
     }
   }
 }
-
-// - Issue: Multiple assocations are not supported by the Microsoft.ServiceNetworking RP at current.
-
-// resource associations 'Microsoft.ServiceNetworking/trafficControllers/associations@2023-11-01' = [for (subnet, index) in subnetIds: {
-//   name: '${resourceName.association}-${padLeft(index, 3, '0')}'
-//   parent: controller
-//   location: location
-//   properties: {
-//     associationType: 'subnets'
-//     subnet: {
-//       id: subnet
-//     }
-//   }
-// }]
 
 // ---------
 // Variables
