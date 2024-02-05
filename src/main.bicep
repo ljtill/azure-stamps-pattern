@@ -1,3 +1,9 @@
+// -------
+// Imports
+// -------
+
+import * as types from './types/default.bicep'
+
 // ------
 // Scopes
 // ------
@@ -8,37 +14,39 @@ targetScope = 'subscription'
 // Modules
 // -------
 
-// Resource Groups
-module groups './modules/groups.bicep' = {
-  name: 'Microsoft.ResourceGroups'
-  scope: subscription(settings.subscriptionId)
+// Regions
+// - Issue: Unable to implement 'optionalModuleNames'
+// - Exception: Expected module syntax body to contain property 'name'
+// - Patch: Added 'name' property to the module syntax body
+
+module regions './modules/region.scope.bicep' = [for (metadata, index) in metadata: {
+  name: format('regions-${index}-${uniqueString('regions', deployment().name)}')
+  scope: subscription()
   params: {
-    defaults: defaults
-    settings: settings
+    metadata: union(metadata, {
+        project: project
+      })
+    tags: {}
+  }
+}]
+
+// Global
+
+module global './modules/global.scope.bicep' = {
+  scope: subscription()
+  params: {
+    metadata: {
+      location: 'westus2'
+      project: project
+      domains: [for (metadata, index) in metadata: regions[index].outputs.domain]
+    }
+    tags: {}
   }
 }
-
-// Resources
-module resources './modules/resources.bicep' = {
-  name: 'Microsoft.Resources'
-  scope: resourceGroup(settings.resourceGroups[0].name)
-  params: {
-    defaults: defaults
-    settings: settings
-  }
-  dependsOn: [
-    groups
-  ]
-}
-
-// ---------
-// Variables
-// ---------
-
-var defaults = loadJsonContent('defaults.json')
 
 // ----------
 // Parameters
 // ----------
 
-param settings object
+param project string
+param metadata types.metadata[]

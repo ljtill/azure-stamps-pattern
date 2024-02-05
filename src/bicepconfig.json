@@ -1,21 +1,25 @@
 {
-  "analyzers": {
-    "core": {
-      "enabled": true,
-      "verbose": false,
-      "rules": {
-        "no-unused-params": {
-          "level": "off"
+    "analyzers": {
+        "core": {
+            "enabled": true,
+            "verbose": false,
+            "rules": {
+                "no-unused-vars": {
+                    "level": "off"
+                }
+            }
         }
-      }
+    },
+    "cloud": {
+        "currentProfile": "AzureCloud"
+    },
+    "experimentalFeaturesEnabled": {
+        "extensibility": true,
+        "compileTimeImports": true,
+        "optionalModuleNames": true
+    },
+    "moduleAliases": {
+        "ts": {},
+        "br": {}
     }
-  },
-  "cloud": {
-    "currentProfile": "AzureCloud"
-  },
-  "experimentalFeaturesEnabled": {},
-  "moduleAliases": {
-    "ts": {},
-    "br": {}
-  }
 }
