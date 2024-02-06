@@ -1,12 +1,37 @@
 # 🌐 Traffic Routing
 
-This repository provides insights into implementing [Deployment Stamps](https://learn.microsoft.com/azure/architecture/patterns/deployment-stamp) pattern in Microsoft Azure through Bicep, following best practices for ensuring application resilience and high availability.
+This repository provides insights into implementing [Deployment Stamps](https://learn.microsoft.com/azure/architecture/patterns/deployment-stamp) pattern in Microsoft Azure through [Bicep](https://learn.microsoft.com/azure/azure-resource-manager/bicep/overview), following best practices for ensuring application resilience and high availability.
 
-By leveraging Azure resources such as Front Door, Application Gateway for Containers, Kubernetes Service, and Availability Zones, the repository demonstrates the construction of a resilient architecture. It places particular emphasis on establishing a dependable infrastructure for distributing traffic across global clusters. This is achieved through the integration of both global and regional networking components. The end result is a highly available and scalable framework designed to optimize traffic routing and enhance overall performance.
+By leveraging Azure resources such as [Front Door](https://learn.microsoft.com/azure/frontdoor/front-door-overview), [Application Gateway for Containers](https://learn.microsoft.com/azure/application-gateway/for-containers/overview), [Kubernetes Service](https://learn.microsoft.com/azure/aks/intro-kubernetes), and [Availability Zones](https://learn.microsoft.com/azure/reliability/availability-zones-overview), the repository demonstrates the construction of a resilient architecture. It places particular emphasis on establishing a dependable infrastructure for distributing traffic across global clusters. This is achieved through the integration of both global and regional networking components. The end result is a highly available and scalable framework designed to optimize traffic routing and enhance overall performance.
 
 ![Architecture](./eng/images/architecture.png)
 
 ---
+
+## Getting Started
+
+Initiate authentication into the Azure CLI and then choose the preferred subscription.
+
+```bash
+az login
+az account -s '{Subscription}'
+```
+
+Execute the provided Shell Script to generate a Deployment Stack and create the Azure resources outlined in this repository.
+
+```bash
+./eng/scripts/create.sh
+```
+
+Execute the given Shell Script to remove the Azure resources deployed through this repository; this will delete the Deployment Stack along with its associated resources.
+
+```bash
+./eng/scripts/delete.sh
+```
+
+## Notice
+
+> Please note that while the Application Gateway for Containers service is in preview, there is a limitation allowing only one association per AGfC resource. This restriction currently prevents the use of more than one stamp per region. The repository will be updated once this limitation has been lifted. For additional details, please refer to [Microsoft Learn](https://learn.microsoft.com/azure/application-gateway/for-containers/application-gateway-for-containers-components). The source code for the restriction can be found [here](./src/modules/region.resources.bicep#L48).
 
 ## Repository Structure
 
@@ -43,30 +68,3 @@ Within the `eng/` directory, find the following artifacts:
 
 - `images/`: Contains images for the README.md file.
 - `scripts/`: Contains deployment stack creation and deletion scripts.
-
----
-
-## Getting Started
-
-Initiate authentication into the Azure CLI and then choose the preferred subscription.
-
-```bash
-az login
-az account -s '{Subscription}'
-```
-
-Execute the provided Shell Script to generate a Deployment Stack and create the Azure resources outlined in this repository.
-
-```bash
-./eng/scripts/create.sh
-```
-
-Execute the given Shell Script to remove the Azure resources deployed through this repository; this will delete the Deployment Stack along with its associated resources.
-
-```bash
-./eng/scripts/delete.sh
-```
-
-## Notice
-
-> Please note that while the Application Gateway for Containers service is in preview, there is a limitation allowing only one association per AGfC resource. This restriction currently prevents the use of more than one stamp per region. The repository will be updated once this limitation has been lifted. For additional details, please refer to [Microsoft Learn](https://learn.microsoft.com/azure/application-gateway/for-containers/application-gateway-for-containers-components). The source code for the restriction can be found [here](./src/modules/region.resources.bicep#L48).
