@@ -2,6 +2,7 @@
 // Imports
 // -------
 
+import * as functions from '../functions/default.bicep'
 import * as types from '../types/default.bicep'
 
 // ------
@@ -17,7 +18,7 @@ targetScope = 'resourceGroup'
 // Virtual Network
 
 resource network 'Microsoft.Network/virtualNetworks@2023-06-01' = {
-  name: resourceName.virtualNetwork
+  name: functions.getName(metadata.project, 'stamp', metadata.location, 'virtualNetwork', stampId)
   location: metadata.location
   properties: {
     addressSpace: {
@@ -54,7 +55,7 @@ resource network 'Microsoft.Network/virtualNetworks@2023-06-01' = {
 // Kubernetes Service
 
 resource cluster 'Microsoft.ContainerService/managedClusters@2023-10-02-preview' = {
-  name: resourceName.managedCluster
+  name: functions.getName(metadata.project, 'stamp', metadata.location, 'managedCluster', stampId)
   location: metadata.location
   sku: {
     name: 'Base'
@@ -64,8 +65,8 @@ resource cluster 'Microsoft.ContainerService/managedClusters@2023-10-02-preview'
     type: 'SystemAssigned'
   }
   properties: {
-    nodeResourceGroup: resourceName.resourceGroup
-    dnsPrefix: resourceName.managedCluster
+    nodeResourceGroup: functions.getName(metadata.project, 'stamp', metadata.location, 'nodeResourceGroup', stampId)
+    dnsPrefix: functions.getName(metadata.project, 'stamp', metadata.location, 'managedCluster', stampId)
     agentPoolProfiles: [
       {
         name: 'system'
@@ -140,7 +141,7 @@ resource extension 'Microsoft.KubernetesConfiguration/extensions@2023-05-01' = {
 // Managed Identity
 
 resource identity 'Microsoft.ManagedIdentity/userAssignedIdentities@2023-07-31-preview' = {
-  name: resourceName.userIdentity
+  name: functions.getName(metadata.project, 'stamp', metadata.location, 'userIdentity', stampId)
   location: metadata.location
   tags: tags
 }
@@ -205,19 +206,6 @@ module gateway './cluster.gateway.bicep' = {
     application
     controller
   ]
-}
-
-// ---------
-// Variables
-// ---------
-
-var defaults = loadJsonContent('../defaults.json')
-
-var resourceName = {
-  resourceGroup: '${metadata.project}-stp-${defaults.locations[metadata.location]}-rsg-${stampId}-int'
-  virtualNetwork: '${metadata.project}-stp-${defaults.locations[metadata.location]}-vnt-${stampId}'
-  managedCluster: '${metadata.project}-stp-${defaults.locations[metadata.location]}-mnc-${stampId}'
-  userIdentity: '${metadata.project}-stp-${defaults.locations[metadata.location]}-umi-${stampId}'
 }
 
 // ----------

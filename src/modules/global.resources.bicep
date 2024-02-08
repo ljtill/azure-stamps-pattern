@@ -2,6 +2,7 @@
 // Imports
 // -------
 
+import * as functions from '../functions/default.bicep'
 import * as types from '../types/default.bicep'
 
 // ------
@@ -17,7 +18,7 @@ targetScope = 'resourceGroup'
 // Front Door
 
 resource front 'Microsoft.Cdn/profiles@2023-07-01-preview' = {
-  name: resourceName.frontDoor
+  name: functions.getName(metadata.project, 'global', null, 'frontDoor', null)
   location: 'global'
   sku: {
     name: 'Standard_AzureFrontDoor'
@@ -86,16 +87,6 @@ resource route 'Microsoft.Cdn/profiles/afdEndpoints/routes@2023-07-01-preview' =
       '/*'
     ]
   }
-}
-
-// ---------
-// Variables
-// ---------
-
-var defaults = loadJsonContent('../defaults.json')
-
-var resourceName = {
-  frontDoor: '${metadata.project}-glb-fdr'
 }
 
 // ----------

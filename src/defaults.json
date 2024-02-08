@@ -1,8 +1,25 @@
 {
+    "deploymentScopes": {
+        "global": "gbl",
+        "region": "rgn",
+        "stamp": "smp"
+    },
     "locations": {
         "australiaeast": "aeu",
         "eastus": "eus",
+        "westus2": "wu2",
         "northeurope": "neu",
         "uksouth": "uks"
+    },
+    "resourceTypes": {
+        "resourceGroup": "rsg",
+        "nodeResourceGroup": "nrg",
+        "virtualNetwork": "vnt",
+        "managedCluster": "mnc",
+        "userIdentity": "uid",
+        "frontDoor": "fdr",
+        "frontend": "ftd",
+        "trafficController": "tfc",
+        "assocation": "asc"
     }
 }

@@ -2,6 +2,7 @@
 // Imports
 // -------
 
+import * as functions from '../functions/default.bicep'
 import * as types from '../types/default.bicep'
 
 // ------
@@ -29,7 +30,7 @@ resource assignments 'Microsoft.Authorization/roleAssignments@2022-04-01' = [for
 // Traffic Controller (AGC)
 
 resource controller 'Microsoft.ServiceNetworking/trafficControllers@2023-11-01' = {
-  name: resourceName.trafficController
+  name: functions.getName(metadata.project, 'region', metadata.location, 'trafficController', null)
   location: metadata.location
   properties: {}
   tags: tags
@@ -38,7 +39,7 @@ resource controller 'Microsoft.ServiceNetworking/trafficControllers@2023-11-01' 
 // Frontend
 
 resource frontend 'Microsoft.ServiceNetworking/trafficControllers/frontends@2023-11-01' = {
-  name: 'default'
+  name: functions.getName(metadata.project, 'region', metadata.location, 'frontend', null)
   parent: controller
   location: metadata.location
   properties: {}
@@ -48,7 +49,7 @@ resource frontend 'Microsoft.ServiceNetworking/trafficControllers/frontends@2023
 // - Issue: Multiple assocations are not supported by the Microsoft.ServiceNetworking RP.
 
 resource associations 'Microsoft.ServiceNetworking/trafficControllers/associations@2023-11-01' = {
-  name: '${resourceName.association}-000'
+  name: functions.getName(metadata.project, 'stamp', metadata.location, 'assocation', null)
   parent: controller
   location: metadata.location
   properties: {
@@ -57,17 +58,6 @@ resource associations 'Microsoft.ServiceNetworking/trafficControllers/associatio
       id: subnetIds[0]
     }
   }
-}
-
-// ---------
-// Variables
-// ---------
-
-var defaults = loadJsonContent('../defaults.json')
-
-var resourceName = {
-  trafficController: '${metadata.project}-rgn-${defaults.locations[metadata.location]}-tfc'
-  association: '${metadata.project}-stp-${defaults.locations[metadata.location]}'
 }
 
 // ----------

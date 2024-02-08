@@ -2,6 +2,7 @@
 // Imports
 // -------
 
+import * as functions from '../functions/default.bicep'
 import * as types from '../types/default.bicep'
 
 // ---------
@@ -45,7 +46,7 @@ resource gateway 'gateway.networking.k8s.io/Gateway@v1' = {
     addresses: [
       {
         type: 'alb.networking.azure.io/alb-frontend'
-        value: 'default'
+        value: frontendName
       }
     ]
   }
@@ -83,14 +84,11 @@ resource route 'gateway.networking.k8s.io/HTTPRoute@v1' = {
 // Variables
 // ---------
 
-var defaults = loadJsonContent('../defaults.json')
+var albId = '/subscriptions/${subscription().subscriptionId}/resourcegroups/${resourceGroupName}/providers/Microsoft.ServiceNetworking/trafficControllers/${trafficControllerName}'
 
-var albId = '/subscriptions/${subscription().subscriptionId}/resourcegroups/${resourceNames.resourceGroup}/providers/Microsoft.ServiceNetworking/trafficControllers/${resourceNames.trafficController}'
-
-var resourceNames = {
-  resourceGroup: '${metadata.project}-rgn-${defaults.locations[metadata.location]}-rsg'
-  trafficController: '${metadata.project}-rgn-${defaults.locations[metadata.location]}-tfc'
-}
+var resourceGroupName = functions.getName(metadata.project, 'region', metadata.location, 'resourceGroup', null)
+var trafficControllerName = functions.getName(metadata.project, 'region', metadata.location, 'trafficController', null)
+var frontendName = functions.getName(metadata.project, 'region', metadata.location, 'frontend', null)
 
 // ----------
 // Parameters

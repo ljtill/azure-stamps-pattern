@@ -2,6 +2,7 @@
 // Imports
 // -------
 
+import * as functions from '../functions/default.bicep'
 import * as types from '../types/default.bicep'
 
 // ------
@@ -15,7 +16,7 @@ targetScope = 'subscription'
 // ---------
 
 resource group 'Microsoft.Resources/resourceGroups@2023-07-01' = {
-  name: resourceName.resourceGroup
+  name: functions.getName(metadata.project, 'region', metadata.location, 'resourceGroup', null)
   location: metadata.location
   properties: {}
   tags: tags
@@ -62,16 +63,6 @@ module resources './region.resources.bicep' = {
     principalIds: [for i in range(0, metadata.stamps!): stamps[i].outputs.principalId]
     subnetIds: [for i in range(0, metadata.stamps!): stamps[i].outputs.subnetId]
   }
-}
-
-// ---------
-// Variables
-// ---------
-
-var defaults = loadJsonContent('../defaults.json')
-
-var resourceName = {
-  resourceGroup: '${metadata.project}-rgn-${defaults.locations[metadata.location]}-rsg'
 }
 
 // ----------

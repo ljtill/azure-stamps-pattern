@@ -94,12 +94,6 @@ resource deployment 'apps/Deployment@v1' = {
   dependsOn: [ namespace ]
 }
 
-// ---------
-// Variables
-// ---------
-
-var defaults = loadJsonContent('../defaults.json')
-
 // ----------
 // Parameters
 // ----------

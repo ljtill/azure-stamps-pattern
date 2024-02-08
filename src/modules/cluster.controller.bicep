@@ -17,14 +17,6 @@ provider 'kubernetes@1.0.0' with {
 // Resources
 // ---------
 
-// Namespace
-
-// resource namespace 'core/Namespace@v1' = {
-//   metadata: {
-//     name: ''
-//   }
-// }
-
 // Service Account
 
 resource account 'core/ServiceAccount@v1' = {
@@ -154,12 +146,6 @@ resource release 'helm.toolkit.fluxcd.io/HelmRelease@v2beta1' = {
     }
   }
 }
-
-// ---------
-// Variables
-// ---------
-
-var defaults = loadJsonContent('../defaults.json')
 
 // ----------
 // Parameters
