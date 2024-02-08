@@ -4,12 +4,5 @@
         "ghcr.io/devcontainers/features/azure-cli:1": {},
         "ghcr.io/ljtill/features/bicep:1": {},
         "ghcr.io/ljtill/features/kubectl:1": {}
-    },
-    "customizations": {
-        "vscode": {
-            "extensions": [
-                "ms-azuretools.vscode-bicep"
-            ]
-        }
     }
 }
