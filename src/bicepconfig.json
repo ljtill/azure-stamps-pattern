@@ -16,7 +16,8 @@
     "experimentalFeaturesEnabled": {
         "extensibility": true,
         "compileTimeImports": true,
-        "optionalModuleNames": true
+        "optionalModuleNames": true,
+        "userDefinedFunctions": true
     },
     "moduleAliases": {
         "ts": {},

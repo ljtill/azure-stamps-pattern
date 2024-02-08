@@ -23,9 +23,7 @@ module regions './modules/region.scope.bicep' = [for (metadata, index) in metada
   name: format('regions-${index}-${uniqueString('regions', deployment().name)}')
   scope: subscription()
   params: {
-    metadata: union(metadata, {
-        project: project
-      })
+    metadata: metadata
     tags: {}
   }
 }]
@@ -36,8 +34,8 @@ module global './modules/global.scope.bicep' = {
   scope: subscription()
   params: {
     metadata: {
+      project: metadata[0].project
       location: 'westus2'
-      project: project
       domains: [for (metadata, index) in metadata: regions[index].outputs.domain]
     }
     tags: {}
@@ -48,5 +46,4 @@ module global './modules/global.scope.bicep' = {
 // Parameters
 // ----------
 
-param project string
 param metadata types.metadata[]
