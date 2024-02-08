@@ -10,7 +10,7 @@ using 'main.bicep'
 
 param metadata = [
   {
-    project: 'msc'
+    project: ''
     location: 'northeurope'
     stamps: 1
   }
