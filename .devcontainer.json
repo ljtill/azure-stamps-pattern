@@ -1,9 +1,9 @@
 {
     "image": "mcr.microsoft.com/devcontainers/base:jammy",
     "features": {
-        "ghcr.io/devcontainers/features/azure-cli:1": {
-            "installBicep": true
-        }
+        "ghcr.io/devcontainers/features/azure-cli:1": {},
+        "ghcr.io/ljtill/features/bicep:1": {},
+        "ghcr.io/ljtill/features/kubectl:1": {}
     },
     "customizations": {
         "vscode": {
