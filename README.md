@@ -1,4 +1,4 @@
-# 🌐 Traffic Routing
+# 🏗️ Deployment Stamps
 
 This repository provides insights into implementing [Deployment Stamps](https://learn.microsoft.com/azure/architecture/patterns/deployment-stamp) pattern in Microsoft Azure through [Bicep](https://learn.microsoft.com/azure/azure-resource-manager/bicep/overview), following best practices for ensuring application resilience and high availability.
 
@@ -39,9 +39,9 @@ Within the `src/` directory, you'll find the following artifacts:
 
 - `main.bicep`: This Bicep file loads defaults, user-defined settings, and resource modules.
 - `main.bicepparam`: Bicep parameter file handling environment-specific settings.
-- `bicepconfig.json`: JSON file customizing the Bicep development experience.
 - `defaults.json`: JSON file providing Bicep with a set of reusable common values.
 - `modules/`: Contains resource groups and resource modules to quickly get started.
+- `functions/`: Contains collection of reusable functions such as resource name generation.
 
 The global files handle the deployment of Azure Front Door and configure traffic routing policies.
 
