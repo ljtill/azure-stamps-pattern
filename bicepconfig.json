@@ -4,7 +4,7 @@
             "enabled": true,
             "verbose": false,
             "rules": {
-                "no-unused-params": {
+                "no-unused-vars": {
                     "level": "off"
                 }
             }
@@ -14,13 +14,8 @@
         "currentProfile": "AzureCloud"
     },
     "experimentalFeaturesEnabled": {
-        "dynamicTypeLoading": true,
         "extensibility": true,
         "optionalModuleNames": true,
-        "resourceDerivedTypes": true,
-        "resourceTypedParamsAndOutputs": true,
-        "sourceMapping": true,
-        "symbolicNameCodegen": true,
         "userDefinedFunctions": true
     },
     "moduleAliases": {
