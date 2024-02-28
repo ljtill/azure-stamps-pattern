@@ -2,7 +2,7 @@
 // Usings
 // ------
 
-using 'main.bicep'
+using '../main.bicep'
 
 // ----------
 // Parameters
