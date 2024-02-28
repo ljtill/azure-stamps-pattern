@@ -2,7 +2,7 @@
 // Imports
 // -------
 
-import * as types from '../types/default.bicep'
+import * as types from '../types/main.bicep'
 
 // ---------
 // Providers

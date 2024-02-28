@@ -2,8 +2,8 @@
 // Imports
 // -------
 
-import * as functions from '../functions/default.bicep'
-import * as types from '../types/default.bicep'
+import * as functions from '../functions/main.bicep'
+import * as types from '../types/main.bicep'
 
 // ------
 // Scopes
