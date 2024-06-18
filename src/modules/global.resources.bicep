@@ -45,17 +45,19 @@ resource group 'Microsoft.Cdn/profiles/originGroups@2023-07-01-preview' = {
   }
 }
 
-resource origins 'Microsoft.Cdn/profiles/originGroups/origins@2023-07-01-preview' = [for domain in metadata.domains!: {
-  name: split(domain, '.')[0]
-  parent: group
-  properties: {
-    hostName: domain
-    httpPort: 80
-    httpsPort: 443
-    priority: 1
-    weight: 1000
+resource origins 'Microsoft.Cdn/profiles/originGroups/origins@2023-07-01-preview' = [
+  for domain in metadata.domains!: {
+    name: split(domain, '.')[0]
+    parent: group
+    properties: {
+      hostName: domain
+      httpPort: 80
+      httpsPort: 443
+      priority: 1
+      weight: 1000
+    }
   }
-}]
+]
 
 // Endpoints
 
