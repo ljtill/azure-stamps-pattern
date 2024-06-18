@@ -8,7 +8,7 @@ import * as types from '../types/main.bicep'
 // Providers
 // ---------
 
-provider 'kubernetes@1.0.0' with {
+provider kubernetes with {
   kubeConfig: kubeConfig
   namespace: 'default'
 }
@@ -45,7 +45,7 @@ resource service 'core/Service@v1' = {
       }
     ]
   }
-  dependsOn: [ namespace ]
+  dependsOn: [namespace]
 }
 
 // Deployment
@@ -91,7 +91,7 @@ resource deployment 'apps/Deployment@v1' = {
       }
     }
   }
-  dependsOn: [ namespace ]
+  dependsOn: [namespace]
 }
 
 // ----------

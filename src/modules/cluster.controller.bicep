@@ -8,7 +8,7 @@ import * as types from '../types/main.bicep'
 // Providers
 // ---------
 
-provider 'kubernetes@1.0.0' with {
+provider kubernetes with {
   kubeConfig: kubeConfig
   namespace: 'default'
 }
@@ -35,9 +35,9 @@ resource role 'rbac.authorization.k8s.io/Role@v1' = {
   }
   rules: [
     {
-      apiGroups: [ '*' ]
-      resources: [ '*' ]
-      verbs: [ '*' ]
+      apiGroups: ['*']
+      resources: ['*']
+      verbs: ['*']
     }
   ]
 }
@@ -50,9 +50,9 @@ resource clusterRole 'rbac.authorization.k8s.io/ClusterRole@v1' = {
   }
   rules: [
     {
-      apiGroups: [ '*' ]
-      resources: [ '*' ]
-      verbs: [ '*' ]
+      apiGroups: ['*']
+      resources: ['*']
+      verbs: ['*']
     }
   ]
 }
