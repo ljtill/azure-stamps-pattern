@@ -6,6 +6,9 @@
             "rules": {
                 "no-unused-vars": {
                     "level": "off"
+                },
+                "use-recent-api-versions": {
+                    "level": "info"
                 }
             }
         }
@@ -15,8 +18,7 @@
     },
     "experimentalFeaturesEnabled": {
         "extensibility": true,
-        "optionalModuleNames": true,
-        "userDefinedFunctions": true
+        "optionalModuleNames": true
     },
     "moduleAliases": {
         "ts": {},
