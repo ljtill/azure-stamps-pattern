@@ -17,7 +17,7 @@ targetScope = 'resourceGroup'
 
 // Front Door
 
-resource front 'Microsoft.Cdn/profiles@2023-07-01-preview' = {
+resource front 'Microsoft.Cdn/profiles@2024-02-01' = {
   name: functions.getName(metadata.project, 'global', null, 'frontDoor', null)
   location: 'global'
   sku: {
@@ -28,7 +28,7 @@ resource front 'Microsoft.Cdn/profiles@2023-07-01-preview' = {
 
 // Origin Group
 
-resource group 'Microsoft.Cdn/profiles/originGroups@2023-07-01-preview' = {
+resource group 'Microsoft.Cdn/profiles/originGroups@2024-02-01' = {
   name: 'default'
   parent: front
   properties: {
@@ -45,7 +45,7 @@ resource group 'Microsoft.Cdn/profiles/originGroups@2023-07-01-preview' = {
   }
 }
 
-resource origins 'Microsoft.Cdn/profiles/originGroups/origins@2023-07-01-preview' = [
+resource origins 'Microsoft.Cdn/profiles/originGroups/origins@2024-02-01' = [
   for domain in metadata.domains!: {
     name: split(domain, '.')[0]
     parent: group
@@ -61,7 +61,7 @@ resource origins 'Microsoft.Cdn/profiles/originGroups/origins@2023-07-01-preview
 
 // Endpoints
 
-resource endpoint 'Microsoft.Cdn/profiles/afdEndpoints@2023-07-01-preview' = {
+resource endpoint 'Microsoft.Cdn/profiles/afdEndpoints@2024-02-01' = {
   name: 'default'
   parent: front
   location: 'global'
@@ -70,7 +70,7 @@ resource endpoint 'Microsoft.Cdn/profiles/afdEndpoints@2023-07-01-preview' = {
   }
 }
 
-resource route 'Microsoft.Cdn/profiles/afdEndpoints/routes@2023-07-01-preview' = {
+resource route 'Microsoft.Cdn/profiles/afdEndpoints/routes@2024-02-01' = {
   name: 'default'
   parent: endpoint
   properties: {
