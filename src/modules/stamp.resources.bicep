@@ -17,7 +17,7 @@ targetScope = 'resourceGroup'
 
 // Virtual Network
 
-resource network 'Microsoft.Network/virtualNetworks@2023-06-01' = {
+resource network 'Microsoft.Network/virtualNetworks@2023-11-01' = {
   name: functions.getName(metadata.project, 'stamp', metadata.location, 'virtualNetwork', stampId)
   location: metadata.location
   properties: {
@@ -54,7 +54,7 @@ resource network 'Microsoft.Network/virtualNetworks@2023-06-01' = {
 
 // Kubernetes Service
 
-resource cluster 'Microsoft.ContainerService/managedClusters@2023-10-02-preview' = {
+resource cluster 'Microsoft.ContainerService/managedClusters@2024-03-02-preview' = {
   name: functions.getName(metadata.project, 'stamp', metadata.location, 'managedCluster', stampId)
   location: metadata.location
   sku: {
