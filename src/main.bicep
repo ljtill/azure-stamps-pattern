@@ -19,14 +19,16 @@ targetScope = 'subscription'
 // - Exception: Expected module syntax body to contain property 'name'
 // - Patch: Added 'name' property to the module syntax body
 
-module regions './modules/region.scope.bicep' = [for (metadata, index) in metadata: {
-  name: format('regions-${index}-${uniqueString('regions', deployment().name)}')
-  scope: subscription()
-  params: {
-    metadata: metadata
-    tags: {}
+module regions './modules/region.scope.bicep' = [
+  for (metadata, index) in metadata: {
+    name: format('regions-${index}-${uniqueString('regions', deployment().name)}')
+    scope: subscription()
+    params: {
+      metadata: metadata
+      tags: {}
+    }
   }
-}]
+]
 
 // Global
 

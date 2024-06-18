@@ -165,7 +165,10 @@ resource assignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
   scope: network
   properties: {
     principalId: identity.properties.principalId
-    roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', '4d97b98b-1d4f-4787-a291-c67834d212e7')
+    roleDefinitionId: subscriptionResourceId(
+      'Microsoft.Authorization/roleDefinitions',
+      '4d97b98b-1d4f-4787-a291-c67834d212e7'
+    )
     principalType: 'ServicePrincipal'
   }
 }
@@ -185,7 +188,7 @@ module controller './cluster.controller.bicep' = {
     kubeConfig: cluster.listClusterAdminCredential().kubeconfigs[0].value
     clientId: identity.properties.clientId
   }
-  dependsOn: [ extension ]
+  dependsOn: [extension]
 }
 
 module application './cluster.application.bicep' = {
@@ -193,7 +196,7 @@ module application './cluster.application.bicep' = {
   params: {
     kubeConfig: cluster.listClusterAdminCredential().kubeconfigs[0].value
   }
-  dependsOn: [ controller ]
+  dependsOn: [controller]
 }
 
 module gateway './cluster.gateway.bicep' = {

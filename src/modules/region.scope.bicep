@@ -24,15 +24,20 @@ resource group 'Microsoft.Resources/resourceGroups@2023-07-01' = {
 
 // Role Assignments
 
-resource assignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = [for i in range(0, metadata.stamps!): {
-  name: guid('Reader', '${metadata.location}', '${i}')
-  scope: subscription()
-  properties: {
-    principalId: stamps[i].outputs.principalId
-    roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', 'acdd72a7-3385-48ef-bd42-f606fba81ae7')
-    principalType: 'ServicePrincipal'
+resource assignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = [
+  for i in range(0, metadata.stamps!): {
+    name: guid('Reader', '${metadata.location}', '${i}')
+    scope: subscription()
+    properties: {
+      principalId: stamps[i].outputs.principalId
+      roleDefinitionId: subscriptionResourceId(
+        'Microsoft.Authorization/roleDefinitions',
+        'acdd72a7-3385-48ef-bd42-f606fba81ae7'
+      )
+      principalType: 'ServicePrincipal'
+    }
   }
-}]
+]
 
 // -------
 // Modules
@@ -43,15 +48,17 @@ resource assignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = [for 
 // - Exception: Expected module syntax body to contain property 'name'
 // - Patch: Added 'name' property to the module syntax body
 
-module stamps './stamp.scope.bicep' = [for stampId in range(0, metadata.stamps!): {
-  name: format('stamps-${stampId}-${uniqueString('stamps', deployment().name)}')
-  scope: subscription()
-  params: {
-    metadata: metadata
-    tags: tags
-    stampId: padLeft(stampId, 3, '0')
+module stamps './stamp.scope.bicep' = [
+  for stampId in range(0, metadata.stamps!): {
+    name: format('stamps-${stampId}-${uniqueString('stamps', deployment().name)}')
+    scope: subscription()
+    params: {
+      metadata: metadata
+      tags: tags
+      stampId: padLeft(stampId, 3, '0')
+    }
   }
-}]
+]
 
 // Resources
 

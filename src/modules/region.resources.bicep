@@ -17,15 +17,20 @@ targetScope = 'resourceGroup'
 
 // Role Assignments
 
-resource assignments 'Microsoft.Authorization/roleAssignments@2022-04-01' = [for (principalId, index) in principalIds: {
-  name: guid(principalId, 'ApplicationGatewayForContainersConfigurationManager', '${index}')
-  scope: controller
-  properties: {
-    principalId: principalId
-    roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', 'fbc52c3f-28ad-4303-a892-8a056630b8f1')
-    principalType: 'ServicePrincipal'
+resource assignments 'Microsoft.Authorization/roleAssignments@2022-04-01' = [
+  for (principalId, index) in principalIds: {
+    name: guid(principalId, 'ApplicationGatewayForContainersConfigurationManager', '${index}')
+    scope: controller
+    properties: {
+      principalId: principalId
+      roleDefinitionId: subscriptionResourceId(
+        'Microsoft.Authorization/roleDefinitions',
+        'fbc52c3f-28ad-4303-a892-8a056630b8f1'
+      )
+      principalType: 'ServicePrincipal'
+    }
   }
-}]
+]
 
 // Traffic Controller (AGC)
 
