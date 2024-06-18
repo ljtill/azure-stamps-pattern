@@ -9,7 +9,7 @@ import * as types from '../types/main.bicep'
 // Providers
 // ---------
 
-provider 'kubernetes@1.0.0' with {
+provider kubernetes with {
   kubeConfig: kubeConfig
   namespace: 'default'
 }
