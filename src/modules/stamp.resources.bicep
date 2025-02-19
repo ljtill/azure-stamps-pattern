@@ -17,7 +17,7 @@ targetScope = 'resourceGroup'
 
 // Virtual Network
 
-resource network 'Microsoft.Network/virtualNetworks@2023-11-01' = {
+resource network 'Microsoft.Network/virtualNetworks@2024-05-01' = {
   name: functions.getName(metadata.project, 'stamp', metadata.location, 'virtualNetwork', stampId)
   location: metadata.location
   properties: {
@@ -54,7 +54,7 @@ resource network 'Microsoft.Network/virtualNetworks@2023-11-01' = {
 
 // Kubernetes Service
 
-resource cluster 'Microsoft.ContainerService/managedClusters@2024-03-02-preview' = {
+resource cluster 'Microsoft.ContainerService/managedClusters@2024-09-01' = {
   name: functions.getName(metadata.project, 'stamp', metadata.location, 'managedCluster', stampId)
   location: metadata.location
   sku: {
@@ -140,13 +140,13 @@ resource extension 'Microsoft.KubernetesConfiguration/extensions@2023-05-01' = {
 
 // Managed Identity
 
-resource identity 'Microsoft.ManagedIdentity/userAssignedIdentities@2023-07-31-preview' = {
+resource identity 'Microsoft.ManagedIdentity/userAssignedIdentities@2023-01-31' = {
   name: functions.getName(metadata.project, 'stamp', metadata.location, 'userIdentity', stampId)
   location: metadata.location
   tags: tags
 }
 
-resource credential 'Microsoft.ManagedIdentity/userAssignedIdentities/federatedIdentityCredentials@2023-07-31-preview' = {
+resource credential 'Microsoft.ManagedIdentity/userAssignedIdentities/federatedIdentityCredentials@2023-01-31' = {
   name: 'default'
   parent: identity
   properties: {

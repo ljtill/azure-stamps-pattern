@@ -34,7 +34,7 @@ resource assignments 'Microsoft.Authorization/roleAssignments@2022-04-01' = [
 
 // Traffic Controller (AGC)
 
-resource controller 'Microsoft.ServiceNetworking/trafficControllers@2023-11-01' = {
+resource controller 'Microsoft.ServiceNetworking/trafficControllers@2025-01-01' = {
   name: functions.getName(metadata.project, 'region', metadata.location, 'trafficController', null)
   location: metadata.location
   properties: {}
@@ -43,7 +43,7 @@ resource controller 'Microsoft.ServiceNetworking/trafficControllers@2023-11-01' 
 
 // Frontend
 
-resource frontend 'Microsoft.ServiceNetworking/trafficControllers/frontends@2023-11-01' = {
+resource frontend 'Microsoft.ServiceNetworking/trafficControllers/frontends@2025-01-01' = {
   name: functions.getName(metadata.project, 'region', metadata.location, 'frontend', null)
   parent: controller
   location: metadata.location
@@ -53,7 +53,7 @@ resource frontend 'Microsoft.ServiceNetworking/trafficControllers/frontends@2023
 // Associations
 // - Issue: Multiple assocations are not supported by the Microsoft.ServiceNetworking RP.
 
-resource associations 'Microsoft.ServiceNetworking/trafficControllers/associations@2023-11-01' = {
+resource associations 'Microsoft.ServiceNetworking/trafficControllers/associations@2025-01-01' = {
   name: functions.getName(metadata.project, 'stamp', metadata.location, 'assocation', null)
   parent: controller
   location: metadata.location
